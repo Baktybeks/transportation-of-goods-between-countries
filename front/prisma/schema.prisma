@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id                Int             @id @default(autoincrement())
+  name              String?
+  email             String          @unique
+  password          String
+  role              Role            @default(USER)
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+}
+
+model Applications {
+  id                Int             @id @default(autoincrement())
+  name              String
+  email             String
+  phone             String
+  title             String
+  image             String
+  description       String
+  processed         Boolean         @default(false)
+  fromCountry       Countries         @relation("FromCountry", fields: [fromCountryId], references: [id])
+  fromCountryId     Int
+  toCountry         Countries         @relation("ToCountry", fields: [toCountryId], references: [id])
+  toCountryId       Int
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+}
+
+model Countries {
+  id      Int       @id @default(autoincrement())
+  country String    @unique
+  fromApplications  Applications[] @relation("FromCountry")
+  toApplications    Applications[] @relation("ToCountry")
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+}
+
+enum Role {
+  USER
+  ADMIN
+}
