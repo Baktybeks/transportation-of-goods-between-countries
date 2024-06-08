@@ -20,7 +20,7 @@ const initialUsers = [
 ];
 
 const seed = async() => {
-  await prisma.users.deleteMany();
+  await prisma.$executeRaw`TRUNCATE TABLE users RESTART IDENTITY;`
   for (const user of initialUsers) {
     const { password, ...userData } = user;
     const hashedPassword = await bcrypt.hash(password, 5);

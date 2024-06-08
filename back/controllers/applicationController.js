@@ -1,4 +1,4 @@
-const { Application } = require('../models/models');
+const { Application, Country } = require('../models/models');
 const ApiError = require('../error/ApiError');
 const uuid = require('uuid');
 const path = require('path');
@@ -34,6 +34,18 @@ class ApplicationController {
       order: [
         [ 'processed', 'ASC' ],
         [ 'createdAt', 'DESC' ]
+      ],
+      include: [
+        {
+          model: Country,
+          as: 'toCountry',
+          attributes: ['country']
+        },
+        {
+          model: Country,
+          as: 'fromCountry',
+          attributes: ['country']
+        }
       ]
     });
     return res.json(data);
