@@ -1,0 +1,65 @@
+@import "../../app/styles/mixin";
+
+.openWorld {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 40px;
+}
+
+.nameHeader {
+  width: 695px;
+  font-size: 58px;
+  font-weight: 800;
+  line-height: 80px;
+  letter-spacing: 0.20000000298023224px;
+  text-align: center;
+  white-space: nowrap;
+  color: #fff;
+  filter: brightness(100%);
+
+  @include tablet {
+    font-size: 34px;
+    line-height: 54px;
+  }
+}
+
+.text {
+  color: #AE1919;
+}
+
+.text {
+  width: 564px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: 0.20000000298023224px;
+  text-align: center;
+  color: #fff;
+  filter: brightness(100%);
+}
+
+.btnServices {
+  width: 175px;
+  height: 52px;
+  display: grid;
+  border-radius: 37px;
+  place-items: center;
+  background: #00CCA6;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 0.20000000298023224px;
+  text-align: center;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  filter: brightness(100%);
+}

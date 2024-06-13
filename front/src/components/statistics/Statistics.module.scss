@@ -1,0 +1,52 @@
+@import "../../app/styles/mixin";
+
+.blockStatistic {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: -65px;
+  position: relative;
+}
+
+.blockText {
+  width: 80%;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: 0.10000000149011612px;
+  text-align: left;
+  color: #252B42;
+  margin-top: 15px;
+}
+
+.blockInfo {
+  width: 328px;
+  height: 248px;
+  padding: 35px 40px 35px 40px;
+  box-shadow: 0 13px 19px 0 #00000012;
+  position: relative;
+  z-index: 5;
+
+  &:nth-child(2) {
+    background: #fff !important;
+  }
+
+  &:nth-child(1) {
+    background: #fff !important;
+  }
+
+  &:nth-child(3) {
+    background: #00CCA6 !important;
+
+    &:nth-child(3) {
+      color: #FFFFFF !important;
+
+      .blockText {
+        &:nth-child(2) {
+          color: #FFFFFF !important;
+        }
+      }
+    }
+  }
+}

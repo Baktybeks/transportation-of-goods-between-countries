@@ -1,17 +1,18 @@
-'use client';
-import React from 'react';
-import { signIn } from 'next-auth/react';
-import { useSearchParams } from 'next/navigation';
-
+'use client'
+import React from 'react'
+import { signIn } from 'next-auth/react'
+import { useSearchParams } from 'next/navigation'
+import styles from './GoogleButton.module.scss'
 
 const GoogleButton = () => {
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl') || '/profile';
-  return (
-    <button onClick={ () => signIn('google', { callbackUrl }) }>
-            Sign in with Google
-    </button>
-  );
-};
+	const searchParams = useSearchParams()
+	const callbackUrl = searchParams.get('callbackUrl') || '/profile'
 
-export default GoogleButton;
+	return (
+		<button className={styles.gogleBtn} onClick={() => signIn('google', { callbackUrl })}>
+			Войти через Google
+		</button>
+	)
+}
+
+export default GoogleButton

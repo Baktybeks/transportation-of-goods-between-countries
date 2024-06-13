@@ -1,0 +1,56 @@
+.nameSliders {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 36px;
+}
+
+.blockContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 119px;
+}
+
+.blocks {
+  width: 1107px;
+  height: 644px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 30px;
+  padding-left: 18%;
+  background: #FFFFFF;
+  box-shadow: 0 13px 19px 0 #00000012;
+  position: relative;
+}
+
+.title {
+  font-size: 31px;
+  font-weight: 700;
+  line-height: 46px;
+  letter-spacing: 0.20000000298023224px;
+  color: #555555;
+  margin-bottom: 25px;
+}
+
+.desc {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 70px;
+  letter-spacing: 0.20000000298023224px;
+  color: #555555;
+}
+
+.imgs {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 5;
+}
+
+.mapImag {
+  position: absolute;
+  bottom: 100px;
+  right: 158px;
+  z-index: 1;
+}
