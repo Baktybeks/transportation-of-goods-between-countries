@@ -7,7 +7,7 @@ const path = require('path');
 class ApplicationController {
   async create(req, res, next) {
     try {
-      const { name, email, phone, title, description, processed, EquipmentId, toCountryId, fromCountryId } = req.body;
+      const { name, email, phone, title, description, processed, toCountryId, fromCountryId } = req.body;
       const { image } = req.files;
       let fileName = uuid.v4() + '.jpg';
       image.mv(path.resolve(__dirname, '..', 'static', fileName));
@@ -18,7 +18,6 @@ class ApplicationController {
         title,
         description,
         processed,
-        EquipmentId,
         image: fileName,
         toCountryId,
         fromCountryId
