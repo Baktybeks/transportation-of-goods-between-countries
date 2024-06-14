@@ -2,7 +2,7 @@ import React from "react";
 import GoogleButton from '@/components/googleButton/GoogleButton'
 import SighInForm from '@/components/sighInForm/SighInForm'
 import Layout from "@/components/layout/Layout";
-import Box from '../../common/icons/bocks.png'
+// import Box from '../../common/icons/bocks.png'
 
 import styles from '../styles/sighnIn/SighIn.module.scss'
 import Image from "next/image";
@@ -13,7 +13,7 @@ export default function SighIn() {
 		<div className={styles.wrapperSignIn}>
 			<div className={styles.imges}>
 				<div className={styles.imge}>
-					<Image src={Box} alt='box'/>
+					{/*<Image src={Box} alt='box'/>*/}
 				</div>
 			</div>
 			<div>
