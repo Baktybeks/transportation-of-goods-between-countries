@@ -73,8 +73,20 @@ const PageApplications = () => {
                     {applications.map((elem: any) => (
                         <li key={elem.id} className={styles.infoList}>
                             <div className={styles.blockInfo}>
+                                <div className={styles.blockImg}>
+                                    <img src={`http://localhost:5000/${elem.image}`} alt='img'
+                                         className={styles.img}/>
+                                </div>
                                 <h2 className={styles.name}>{elem.name}</h2>
                                 <p className={styles.email}>{elem.email}</p>
+                                <p className={styles.email}>{elem.phone}</p>
+                                <p className={styles.email}>{elem.title}</p>
+                                <p className={styles.email}>{elem.description}</p>
+                                <div className={styles.countresBlock}>
+                                    <div>{elem.toCountry.country}</div>
+                                    <div className={styles.line}></div>
+                                    <div>{elem.fromCountry.country}</div>
+                                </div>
                                 <div className={styles.checboxInfo}>
                                     <div className={styles.checboxBlock}>
                                         <input type='checkbox' name='processed' checked={elem.processed}

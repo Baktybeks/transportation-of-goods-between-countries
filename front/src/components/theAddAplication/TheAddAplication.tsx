@@ -51,11 +51,19 @@ const TheAddAplication = ({onActive, active}: PropsActive) => {
 
     const handleChange = (e: any) => {
         const {name, value} = e.target;
-        setNewDirection(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
+        if (name === 'image') {
+            setNewDirection(prevState => ({
+                ...prevState,
+                [name]: e.target.files[0]
+            }));
+        } else {
+            setNewDirection(prevState => ({
+                ...prevState,
+                [name]: value
+            }));
+        }
     };
+
 
     const handleChangeActive = () => {
         onActive(!active);
@@ -126,18 +134,18 @@ const TheAddAplication = ({onActive, active}: PropsActive) => {
                             <input type='text' name='description' value={newDirection.description} className={styles.inputs}
                                    placeholder='Текст' onChange={handleChange}/>
                         </div>
-                        <select className={styles.inputForm}>
+                        <select className={styles.inputForm} onChange={handleChange} name='toCountryId' value={newDirection.toCountryId}>
                             <option className={styles.textInput}>Куда *</option>
                             {country.map((elem: any) => (
-                                <option value={`${elem.toCountryId}`} key={elem.id}
+                                <option value={elem.id} key={elem.id}
                                         className={styles.textGendr}>{elem.country} - {elem.id}
                                 </option>
                             ))}
                         </select>
-                        <select className={styles.inputForm}>
+                        <select className={styles.inputForm} onChange={handleChange} name='fromCountryId' value={newDirection.fromCountryId}>
                             <option className={styles.textInput}>Откуда *</option>
                             {country.map((elem: any) => (
-                                <option value={`${elem.fromCountryId}`} key={elem.id}
+                                <option value={elem.id} key={elem.id}
                                         className={styles.textGendr}>{elem.country} - {elem.id}
                                 </option>
                             ))}

@@ -100,7 +100,7 @@ const PageAdmin = () => {
                 <ul className={styles.blockList}>
                     {country.map((elem: any) => (
                         <li key={elem.id} className={styles.infoList}>
-
+                        <p>{elem.country}</p>
                         <button className={styles.delete} onClick={() => handleDelete(elem.id)}>Удалить</button>
                         </li>
                     ))}

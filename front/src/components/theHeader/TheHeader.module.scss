@@ -27,6 +27,15 @@
   }
 }
 
+.logo {
+  width: 120px;
+  height: 80px;
+  display: grid;
+  place-items: center;
+  background: #00CCA6;
+  border-radius: 100%;
+}
+
 .menu {
   display: flex;
   width: 100%;
@@ -50,11 +59,6 @@
   font-weight: 600;
   line-height: 20px;
   color: #111;
-}
-
-.logo {
-  width: max-content;
-  height: 41px;
 }
 
 .textLink {

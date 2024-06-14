@@ -9,7 +9,7 @@ import styles from './TheHeader.module.scss'
 
 const TheHeader = () => {
 	const session = useSession()
-	console.log(session.data?.user?.name)
+	console.log(session.data?.user?.email)
 	return (
 		<header className={styles.wrapperHeader}>
 			<div className={styles.menu}>
@@ -17,7 +17,7 @@ const TheHeader = () => {
 			</div>
 			<div className={styles.linck}>
 				{session?.data && (
-					session.data?.user?.name === 'admin' ? (
+					session.data?.user?.email === 'admin@mail.ru' ? (
 						<>
 							<Link className={styles.textLink} href='/admin'>Профиль</Link>
 							<Link className={styles.textLink} href='/applications'>Заявки</Link>
