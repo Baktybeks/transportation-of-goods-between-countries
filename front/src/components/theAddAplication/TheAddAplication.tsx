@@ -1,9 +1,8 @@
 'use client'
 
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSession} from "next-auth/react";
 import styles from './TheAddAplication.module.scss';
-
 
 interface Props {
     name: string;
@@ -24,6 +23,7 @@ interface PropsActive {
 
 const TheAddAplication = ({onActive, active}: PropsActive) => {
     const session = useSession();
+    const [country, setCountry] = useState<any>([]);
     const [newDirection, setNewDirection] = useState<Props>({
         name: '',
         email: '',
@@ -35,6 +35,19 @@ const TheAddAplication = ({onActive, active}: PropsActive) => {
         fromCountryId: '',
         processed: false,
     });
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch('http://localhost:5000/api/country/');
+            if (!response.ok) {
+                throw new Error('Unable to fetch posts!');
+            }
+            const jsonData = await response.json();
+            setCountry(jsonData.rows);
+        };
+
+        fetchData();
+    }, []);
 
     const handleChange = (e: any) => {
         const {name, value} = e.target;
@@ -53,14 +66,14 @@ const TheAddAplication = ({onActive, active}: PropsActive) => {
         try {
             const formData = new FormData();
             formData.append('name', newDirection.name);
-            formData.append('name', newDirection.email);
+            formData.append('email', newDirection.email);
             formData.append('phone', newDirection.phone);
-            formData.append('phone', newDirection.title);
-            formData.append('phone', newDirection.image);
-            formData.append('phone', newDirection.description);
+            formData.append('title', newDirection.title);
+            formData.append('image', newDirection.image);
+            formData.append('description', newDirection.description);
             formData.append('processed', newDirection.processed.toString());
-            formData.append('processed', newDirection.toCountryId);
-            formData.append('processed', newDirection.fromCountryId);
+            formData.append('toCountryId', newDirection.toCountryId);
+            formData.append('fromCountryId', newDirection.fromCountryId);
 
             const response = await fetch('http://localhost:5000/api/application/', {
                 method: 'POST',
@@ -113,16 +126,22 @@ const TheAddAplication = ({onActive, active}: PropsActive) => {
                             <input type='text' name='description' value={newDirection.description} className={styles.inputs}
                                    placeholder='Текст' onChange={handleChange}/>
                         </div>
-                        <div className={styles.inputForm}>
-                            <label className={styles.textInput}>Куда *</label>
-                            <input type='number' name='toCountryId' value={newDirection.toCountryId} className={styles.inputs}
-                                   placeholder='Страна' onChange={handleChange}/>
-                        </div>
-                        <div className={styles.inputForm}>
-                            <label className={styles.textInput}>Откуда *</label>
-                            <input type='number' name='fromCountryId' value={newDirection.fromCountryId} className={styles.inputs}
-                                   placeholder='Страна' onChange={handleChange}/>
-                        </div>
+                        <select className={styles.inputForm}>
+                            <option className={styles.textInput}>Куда *</option>
+                            {country.map((elem: any) => (
+                                <option value={`${elem.toCountryId}`} key={elem.id}
+                                        className={styles.textGendr}>{elem.country} - {elem.id}
+                                </option>
+                            ))}
+                        </select>
+                        <select className={styles.inputForm}>
+                            <option className={styles.textInput}>Откуда *</option>
+                            {country.map((elem: any) => (
+                                <option value={`${elem.fromCountryId}`} key={elem.id}
+                                        className={styles.textGendr}>{elem.country} - {elem.id}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     {
                         session?.data ? <button onClick={handleChangeActive} className={styles.submit}>Отправить</button> :
