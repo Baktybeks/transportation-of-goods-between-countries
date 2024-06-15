@@ -2,6 +2,7 @@
   width: 700px;
   height: 600px;
   padding: 24px;
+  border-radius: 10px;
 }
 
 .inputsAdds {
@@ -9,6 +10,7 @@
   flex-direction: column;
   justify-content: space-between;
   row-gap: 16px;
+  border-radius: 10px;
 }
 
 .headerInput {
@@ -36,10 +38,11 @@
   display: grid;
   place-items: center;
   height: 34px;
-  background: rgba(241, 89, 43, 1);
+  background:#00CCA6;
   font-size: 14px;
   font-weight: 600;
   line-height: 14px;
+  border-radius: 10px;
   color: #fff;
   border: none;
   margin-top: 16px;

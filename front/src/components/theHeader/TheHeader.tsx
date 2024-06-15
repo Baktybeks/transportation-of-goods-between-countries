@@ -9,7 +9,6 @@ import styles from './TheHeader.module.scss'
 
 const TheHeader = () => {
 	const session = useSession()
-	console.log(session.data?.user?.email)
 	return (
 		<header className={styles.wrapperHeader}>
 			<div className={styles.menu}>
