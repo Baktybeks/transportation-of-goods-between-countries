@@ -55,7 +55,7 @@ const PageAdmin = () => {
         e.preventDefault();
         try {
             const formData = new FormData();
-            formData.append('id', country.country);
+            formData.append('country', newСountry.country);
 
             const response = await fetch('http://localhost:5000/api/country/', {
                 method: 'POST',
