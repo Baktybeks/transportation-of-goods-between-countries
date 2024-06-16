@@ -58,12 +58,8 @@ const Profile = () => {
                             <div key={elem.id} className={styles.infoList}>
                                 <ul key={elem.id} className={styles.list}>
                                     {session?.user?.name === elem.name && (
-                                        elem.processed === true ? (
+                                        elem.processed === true && (
                                             <li className={styles.ok}>Ваша заявка принята</li>
-                                        ) : elem.processed === false ? (
-                                            <li className={styles.not}>Ваша заявка отклонена</li>
-                                        ) : (
-                                            <li className={styles.wait}>Ваша заявка в обработке</li>
                                         )
                                     )}
                                 </ul>
