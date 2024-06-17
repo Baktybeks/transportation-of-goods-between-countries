@@ -21,14 +21,14 @@ const TheFooter = () => {
 				</ul>
 				<ul className={styles.blockText}>
 					<li className={styles.nameHead}>Контакты</li>
-					<li className={styles.text}><Phone/>  +7 (495) 260-17-78</li>
-					<li className={styles.text}><Location/> Москва, Ленинградский проспект, д. 37, корп. 3</li>
-					<li className={styles.text}><Message/> info@gruzi.ru</li>
+					<li className={styles.text}><Phone/>  +996 770 1635813</li>
+					<li className={styles.text}><Location/> Бишкек, Чуй проспект, д. 37, корп. 3</li>
+					<li className={styles.text}><Message/> info@samexpress.kg</li>
 				</ul>
 			</div>
 			<div className={styles.infoEnd}>
 				<div className={styles.blockEnd}>
-					<p className={styles.textEnd}>Все права защищены и принадлежат торговой марке Грузи.ру </p>
+					<p className={styles.textEnd}>Все права защищены и принадлежат торговой марке СЭМ экспресс </p>
 					<ul className={styles.icons}>
 						<li><Facebook/></li>
 						<li><Instagram/></li>

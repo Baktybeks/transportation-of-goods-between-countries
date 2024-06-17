@@ -4,16 +4,8 @@ import React, {useEffect, useState} from 'react';
 import styles from "@/app/styles/admin/Admin.module.scss";
 import Layout from "@/components/layout/Layout";
 
-interface Props {
-    processed: boolean;
-}
-
-
 const PageApplications = () => {
-    const [applications, setApplications] = useState<any>([]);
-    const [newDirection, setNewDirection] = useState<Props>({
-        processed: true,
-    });
+    const [applications, setApplications] = useState<any[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -22,19 +14,19 @@ const PageApplications = () => {
                 throw new Error('Unable to fetch posts!');
             }
             const applicationsData = await res.json();
-            setApplications(applicationsData)
+            setApplications(applicationsData);
         };
 
         fetchData();
     }, []);
 
-    const handleDelete = async (index: string) => {
+    const handleDelete = async (id: string) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/application/${index}`, {
+            const response = await fetch(`http://localhost:5000/api/application/${id}`, {
                 method: 'DELETE'
             });
             if (response.ok) {
-                setApplications((prevApplications: any) => prevApplications.filter((app: any) => app.id !== index));
+                setApplications((prevApplications: any) => prevApplications.filter((app: any) => app.id !== id));
                 console.log('Объект удален');
             } else {
                 console.error('Ошибка при удалении направления:', response.statusText);
@@ -44,26 +36,47 @@ const PageApplications = () => {
         }
     };
 
-    const handleSubmit = async (index: string) => {
+    const handleCheckboxChange = async (id: string) => {
         try {
-            const formData = new FormData();
-            formData.append('processed', newDirection.processed.toString());
+            const updatedApplications = applications.map((app: any) => {
+                if (app.id === id) {
+                    return { ...app, processed: !app.processed };
+                }
+                return app;
+            });
+            setApplications(updatedApplications);
 
-            const response = await fetch(`http://localhost:5000/api/application/${index}`, {
+            const updatedApp = updatedApplications.find((app: any) => app.id === id);
+
+            const response = await fetch(`http://localhost:5000/api/application/${id}`, {
                 method: 'PUT',
-                body: formData,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ processed: updatedApp.processed }),
             });
 
-            if (response.ok) {
-                setApplications((prevApplications: any) => prevApplications.filter((app: any) => app.id !== index));
-                console.log('добавлен объект');
-            } else {
-                console.error('Ошибка при добавлении нового направления:', response.statusText);
+            if (!response.ok) {
+                console.error('Ошибка при обновлении направления:', response.statusText);
             }
         } catch (error) {
             console.error('Ошибка при выполнении запроса:', error);
         }
     };
+
+    function formatDate(isoString:string) {
+        const date = new Date(isoString);
+
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Месяцы начинаются с 0
+        const year = date.getFullYear();
+
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        const seconds = String(date.getSeconds()).padStart(2, '0');
+
+        return `${day}.${month}.${year} ${hours}:${minutes}:${seconds}`;
+    }
 
     return (
         <Layout isFooterHidden>
@@ -82,6 +95,7 @@ const PageApplications = () => {
                                 <p className={styles.email}>{elem.phone}</p>
                                 <p className={styles.email}>{elem.title}</p>
                                 <p className={styles.email}>{elem.description}</p>
+                                <p className={styles.email}>{formatDate(elem.createdAt)}</p>
                                 <div className={styles.countresBlock}>
                                     <div>{elem.toCountry.country}</div>
                                     <div className={styles.line}></div>
@@ -89,12 +103,10 @@ const PageApplications = () => {
                                 </div>
                                 <div className={styles.checboxInfo}>
                                     <div className={styles.checboxBlock}>
-                                        <input type='checkbox' name='processed' checked={elem.processed}
-                                               onClick={() => handleSubmit(elem.id)}
+                                        <input type='checkbox' name='processed' checked={elem.processed} id={`processed-${elem.id}`}
+                                               onChange={() => handleCheckboxChange(elem.id)}
                                                className={styles.checkbox}/>
-                                        <p className={styles.textInput}>
-                                            Подтверждение заявки
-                                        </p>
+                                        <label className={styles.textInput} htmlFor={`processed-${elem.id}`}> Подтверждение заявки</label>
                                     </div>
                                 </div>
                                 <button className={styles.delete} onClick={() => handleDelete(elem.id)}>Удалить</button>

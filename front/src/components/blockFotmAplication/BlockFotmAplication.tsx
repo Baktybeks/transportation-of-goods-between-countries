@@ -4,6 +4,7 @@ import React, {useEffect, useState} from 'react';
 
 import styles from './BlockFotmAplication.module.scss'
 import {useSession} from "next-auth/react";
+import Link from 'next/link';
 
 interface Props {
     name: string;
@@ -17,20 +18,22 @@ interface Props {
     processed: boolean;
 }
 
+const initialState= {
+    name: '',
+    email: '',
+    phone: '',
+    title: '',
+    image: '',
+    description: '',
+    toCountryId: '',
+    fromCountryId: '',
+    processed: false,
+}
+
 const BlockFotmAplication = () => {
     const [country, setCountry] = useState<any>([]);
-    const session = useSession();
-    const [newDirection, setNewDirection] = useState<Props>({
-        name: '',
-        email: '',
-        phone: '',
-        title: '',
-        image: '',
-        description: '',
-        toCountryId: '',
-        fromCountryId: '',
-        processed: false,
-    });
+    const { data: session } = useSession();
+    const [newDirection, setNewDirection] = useState<Props>(initialState);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -44,6 +47,16 @@ const BlockFotmAplication = () => {
 
         fetchData();
     }, []);
+
+    useEffect(() => {
+        if (session) {
+            setNewDirection(prevState => ({
+                ...prevState,
+                name: session?.user?.name || '',
+                email: session?.user?.email || '',
+            }));
+        }
+    }, [session]);
 
     const handleChange = (e: any) => {
         const {name, value} = e.target;
@@ -81,6 +94,7 @@ const BlockFotmAplication = () => {
 
             if (response.ok) {
                 console.log('добавлен объект');
+                setNewDirection(initialState)
             } else {
                 console.error('Ошибка при добавлении нового направления:', response.statusText);
             }
@@ -121,12 +135,12 @@ const BlockFotmAplication = () => {
                     <div className={styles.inputsAdds}>
                         <div className={styles.inputForm}>
                             <label className={styles.textInput}>Имя *</label>
-                            <input type='text' name='name' value={newDirection.name} className={styles.inputs}
+                            <input type='text' name='name' value={newDirection.name} className={styles.inputs} disabled
                                    placeholder='Полное имя * ' onChange={handleChange}/>
                         </div>
                         <div className={styles.inputForm}>
                             <label className={styles.textInput}>Адрес электронной почты *</label>
-                            <input type='email' name='email' value={newDirection.email} className={styles.inputs}
+                            <input type='email' name='email' value={newDirection.email} className={styles.inputs} disabled
                                    placeholder='example@gmail.com  ' onChange={handleChange}/>
                         </div>
                         <div className={styles.inputForm}>
@@ -168,9 +182,10 @@ const BlockFotmAplication = () => {
                         </select>
                     </div>
                     {
-                        session?.data ? <button className={styles.submit}>Отправить</button> :
+                        session ? <button className={styles.submit}>Отправить</button> :
                             <div className={styles.warning}>Для того что бы отправить заявку вы должны
-                                авторизоваться</div>
+                                <Link href='/signin'> авторизоваться</Link>
+                            </div>
                     }
                 </form>
             </div>

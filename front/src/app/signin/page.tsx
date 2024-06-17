@@ -19,6 +19,7 @@ export default function SighIn() {
 			<div>
 				<div className={styles.infoSignIn}>
 					<h1 className={styles.textHeader}>Войти</h1>
+
 					<p className={styles.text}>Введите свои учетные данные чтобы войти в систему</p>
 				</div>
 				<SighInForm/>

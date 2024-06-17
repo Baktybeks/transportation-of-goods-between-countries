@@ -3,6 +3,7 @@
 import React, {useEffect, useState} from 'react';
 import {useSession} from "next-auth/react";
 import styles from './TheAddAplication.module.scss';
+import Link from 'next/link';
 
 interface Props {
     name: string;
@@ -153,8 +154,9 @@ const TheAddAplication = ({onActive, active}: PropsActive) => {
                     </div>
                     {
                         session?.data ? <button onClick={handleChangeActive} className={styles.submit}>Отправить</button> :
-                            <div className={styles.warning}>Для того что бы купить книгу вы должны
-                                авторизоваться</div>
+                            <div className={styles.warning}>Для того что бы отправить заявку вы должны
+                                <Link href='/signin'> авторизоваться</Link>
+                            </div>
                     }
                 </form>
             </div>

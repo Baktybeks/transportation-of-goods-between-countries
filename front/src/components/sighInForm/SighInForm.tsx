@@ -41,7 +41,7 @@ const SighInForm = () => {
 				<input
 					type='checkbox' name='checkbox' id='checkbox' required
 				/>
-				<label className={styles.textCheckbox} htmlFor='password'>Запомнить меня</label>
+				<label className={styles.textCheckbox} htmlFor='checkbox'>Запомнить меня</label>
 			</div>
 			<div></div>
 			<button className={styles.btn} type='submit'>Войти</button>
